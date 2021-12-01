@@ -9,7 +9,8 @@ At the moment scTx relies on the annotated SNV output from [scSNV](https://githu
 #Build the python module for demultiplexing
 
 ```base
-cd ../sctxpy
+git clone --recurse-submodules https://github.com/GWW/sctx.git
+cd sctx/sctxpy
 python setup.py install
 ```
 
@@ -20,6 +21,8 @@ The only required output is the annotated pileup file from scSNV.  There is an e
 
 ```bash
 #Compile the code for simulating transplant samples (not necessary for demultiplexing)
+#Clone repository if it hasn't already been cloned
+
 git clone --recurse-submodules https://github.com/GWW/sctx.git
 cd sctx
 mkdir build
