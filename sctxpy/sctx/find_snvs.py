@@ -36,6 +36,7 @@ import operator
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 import scipy.cluster.hierarchy as sch
 import scipy.spatial.distance as dist
+from mpl_toolkits.axes_grid1.axes_divider import make_axes_locatable
 
 
 def iter_snvs(ref, alt):
@@ -74,8 +75,11 @@ class FindSNVs(object):
         self._predictive = predictive
         self._snv_index = snv_index
 
-    def find_predictive(self, N = 5, max_snvs = 50):
+    def find_predictive(self, N = 5, max_snvs = 50, use_genotypes=False):
         totals = self._snv_scores['total_correct'].values
+        gts = None
+        if use_genotypes:
+            gts = self._snv_scores['exome_gt1'].values
         ai = NP.argsort(totals)
         C = self._predictive.shape[1]
         cell_counts = NP.zeros(C, dtype='int')
@@ -86,6 +90,8 @@ class FindSNVs(object):
         for i in ai[::-1]:
             if len(snvs) > max_snvs:
                 break
+            if use_genotypes and gts[i] == '':
+                continue
             s, e = pp.indptr[i], pp.indptr[i + 1]
             ci = pp.indices[s:e]
             lidx = ci[labs[ci] < 2]
@@ -101,7 +107,7 @@ class FindSNVs(object):
         self._predictive_counts = cell_counts
         print(f'Needed {len(snvs)} SNVs to cover each singlet {N} times')
 
-    def dotplot(self, label_map, out = None, close=False):
+    def dotplot(self, label_map, out = None, close=False, use_genotypes=False):
         snvs = self._predictive_snvs
         idx = snvs['snv_idx'].values
         ref, alt = self._ref[idx], self._alt[idx]
@@ -205,6 +211,22 @@ class FindSNVs(object):
         cb_ax.yaxis.tick_left()
         cb_ax.set_ylabel('Mean Allele Fraction')
         cb_ax.yaxis.set_label_position("left")
+
+        if use_genotypes:
+            axd = make_axes_locatable(ax)
+            gt_ax = axd.append_axes("top", size="20%", pad="1%")
+            #gt_ax = fig.add_axes([pos.xmin, pos.ymax, W, 0.25 ])
+
+            gt_labs = NP.zeros((2, len(snvs)), dtype='double')
+            gt_labs[0] = [float(s) for s in snvs['exome_gt1'].values]
+            gt_labs[1] = [float(s) for s in snvs['exome_gt2'].values]
+
+            gt_ax.imshow(gt_labs[:,cidx], vmin=0, vmax=1, cmap=plt.cm.Spectral_r, aspect='auto')
+            gt_ax.set_xticks([])
+            gt_ax.set_yticks([0, 1])
+            gt_ax.set_yticklabels(['GT1 Exome GT', 'GT2 Exome GT'], fontsize=8)
+
+
         if out is not None:
             fig.savefig(out, bbox_inches='tight')
 
