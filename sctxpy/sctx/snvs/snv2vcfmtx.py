@@ -118,14 +118,10 @@ def snv2vcf_cmd(cargs):
         print(tref.data.dtype, tref.indptr.dtype, tref.indices.dtype, talt.data.dtype)
         print(__file__)
         write_MTX(tref, talt, os.path.join(gt_dir, f'refs.mtx'), os.path.join(gt_dir, f'alts.mtx'))
-        print("Testing")
-        #mmdebug(os.path.join(gt_dir, f'refs.mtx'))
-        #mmdebug(os.path.join(gt_dir, f'alts.mtx'))
-        if not os.path.isfile(f'{gt_dir}/barcodes.txt'):
-            fout = open(f'{gt_dir}/barcodes.txt', 'w')
-            for b in data.barcodes:
-                fout.write(b + "\n")
-            fout.close()
+        fout = open(f'{gt_dir}/barcodes.txt', 'w')
+        for b in data.barcodes:
+            fout.write(b + "\n")
+        fout.close()
     elif args.csv:
         tref = tref.toarray()
         rows = [f'{i[0]}:{i[1] + 1}' for i in fsnvs.index]
