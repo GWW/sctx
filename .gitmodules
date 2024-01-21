@@ -1,6 +1,0 @@
-[submodule "external/sparsepp"]
-	path = external/sparsepp
-	url = https://github.com/greg7mdp/sparsepp
-[submodule "external/parallel-hashmap"]
-	path = external/parallel-hashmap
-	url = https://github.com/greg7mdp/parallel-hashmap.git

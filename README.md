@@ -20,15 +20,7 @@ The only required output is the annotated pileup file from scSNV.  There is an e
 ## Simulationg transplant samples with ambient RNA and doublets
 
 ```bash
-#Compile the code for simulating transplant samples (not necessary for demultiplexing)
-#Clone repository if it hasn't already been cloned
-
-git clone --recurse-submodules https://github.com/GWW/sctx.git
-cd sctx
-mkdir build
-cd build
-cmake -DCMAKE_BUILD_TYPE=Release ..
-make
+The code for mixing is now part of scSNV to simplify compiling. Instructions below assume the scsnv binary is on your path
 ```
 
 scTx requires the HDF5 C and C++ Libraries to compile the simulation framework.
@@ -60,7 +52,7 @@ PBMC_1023       1:CTCTGGTAGGAGTAGA
 
 The mixture command can be run as follows:
 ```bash
-sctx mixture -a 0 -i scsnv_index_path_prefix -r genome.fa -o mixture/pileup -m barcode_map.txt -t 4 lung_collapsed.bam pbmc_collapsed.bam
+scsnv mixture -a 0 -i scsnv_index_path_prefix -r genome.fa -o mixture/pileup -m barcode_map.txt -t 4 lung_collapsed.bam pbmc_collapsed.bam
 ```
 
 ##### Important Arguments:
