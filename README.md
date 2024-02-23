@@ -10,8 +10,8 @@ At the moment scTx relies on the annotated SNV output from [scSNV](https://githu
 
 ```base
 git clone --recurse-submodules https://github.com/GWW/sctx.git
-cd sctx/sctxpy
-python setup.py install
+cd sctx
+pip install .
 ```
 
 The only required output is the annotated pileup file from scSNV.  There is an example file and notebook to demultiplex a kidney transplant sample in the [example folder](https://github.com/GWW/sctx/tree/master/example).
