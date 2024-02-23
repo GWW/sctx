@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 #Copyright (c) 2018-2020 Gavin W. Wilson
 #
 #Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -19,7 +18,7 @@
 #OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 #SOFTWARE.
 
-if __name__ == "__main__":
+def go():
     import sys
     from sctx import cmds
 
