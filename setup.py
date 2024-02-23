@@ -1,7 +1,6 @@
-from setuptools import setup
+from setuptools import setup, Extension, find_packages
 from Cython.Build import cythonize
 import numpy, os
-from setuptools.extension import Extension
 include_dirs = [numpy.get_include()]
 
 extensions = [
@@ -16,6 +15,8 @@ extensions = [
 
 pxd_dirs=['src/sctx/snvs/']
 setup(name='sctx',
-      packages=['sctx'],
+      packages=find_packages(where='src'),
+      package_dir={"":"src"},
+
       ext_modules=cythonize(extensions, include_path=pxd_dirs),
 )
