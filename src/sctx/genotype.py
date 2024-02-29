@@ -264,8 +264,8 @@ class TxDemulti(object):
             return
         params = {'eps':eps, 'upper_mads':upper_mads, 'lower_mads':lower_mads}
         self._genotypes_for_labels()
-        ref = self._ref.tocsc()[:,self._labels['initial_clustering'] == 0]
-        alt = self._alt.tocsc()[:,self._labels['initial_clustering'] == 0]
+        ref = self._ref.tocsc() #[:,self._labels['initial_clustering'] == 0]
+        alt = self._alt.tocsc() #[:,self._labels['initial_clustering'] == 0]
         scores = NP.zeros(ref.shape[1], dtype='double')
         counts = NP.zeros(ref.shape[1], dtype='int')
         means = self._ogts[f'mean_AF_0']
