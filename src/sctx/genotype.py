@@ -295,11 +295,9 @@ class TxDemulti(object):
         if self._close_fig:
             plt.close(fig)
 
-        labels = self._labels['initial_clustering'].copy()
-        lidx = NP.where(labels == 0)[0]
-        labels[lidx] = 3
-        labels[lidx[NP.isfinite(scores) & (scores >= upper)]] = 1
-        labels[lidx[NP.isfinite(scores) & (scores <= lower)]] = 0
+        labels = NP.full(len(scores), 3, dtype='int') #self._labels['initial_clustering'].copy()
+        labels[(NP.isfinite(scores) & (scores >= upper))] = 1
+        labels[(NP.isfinite(scores) & (scores <= lower))] = 0
         #self._labels = labels
         #self._rscore = scores
         self._data['rescue_score'] = scores
