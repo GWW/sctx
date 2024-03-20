@@ -1,10 +1,9 @@
 # pyproject.toml
 
 [build-system]
-requries        = []
 requires        = ['matplotlib','numpy','scipy', 'cython', 'scikit-learn', 
                 'statsmodels', 'h5py', 'flammkuchen',
-                'python-igraph', 'leidenalg', 'cyvcf2']
+                'python-igraph', 'leidenalg', 'cyvcf2', 'setuptools', 'wheel']
 build-backend   = 'setuptools.build_meta'   
 
 [project]
@@ -15,14 +14,6 @@ requires-python = ">=3.8"
 
 [project.urls]
 "Homepage" = "https://github.com/GWW/sctx"
-
-
-#[tool.setuptools]
-#package-dir = {"" = "src"}
-#py-modules = ["_custom_build"]
-
-#[tool.setuptools.packages.find]
-#where = ["src"]
 
 [project.scripts]
 sctxmisc = "sctx.sctxmisc:go"
